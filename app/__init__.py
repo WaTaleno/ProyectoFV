@@ -1,10 +1,13 @@
 from flask import Flask
 from flask_login import LoginManager
 from flask_sqlalchemy import SQLAlchemy
+#
+from flask_socketio import SocketIO
 
 login_manager = LoginManager()
 db = SQLAlchemy()
-
+#
+socketio = SocketIO() 
 
 def create_app():
     app = Flask(__name__)
@@ -18,6 +21,8 @@ def create_app():
 
     db.init_app(app)
 
+    socketio.init_app(app, cors_allowed_origins='*')
+
     # Registro de los Blueprints
     from .auth import auth_bp
     app.register_blueprint(auth_bp)
@@ -29,3 +34,7 @@ def create_app():
     app.register_blueprint(public_bp)
 
     return app
+
+if __name__ == "__main__":
+    app = create_app()
+    socketio.run(app, host="localhost")  # Iniciar el servidor SocketIO
