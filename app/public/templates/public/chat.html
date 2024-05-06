@@ -27,8 +27,10 @@
 <div id="messages">
     
 </div>
-<input type="text" id="username" placeholder="Username">
+<input type="hidden" id="username" value="{{ current_user.name }}">
+<label id="username">{{ current_user.name }}</label>
 <input type="text" id="message" placeholder="Message">
 <button id="sendBtn">Send</button>
+<label>{{ current_user.id }}</label>
 </body>
 </html>

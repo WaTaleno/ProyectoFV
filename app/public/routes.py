@@ -1,8 +1,11 @@
 from flask import abort, render_template
 from flask_socketio import send
 from app import socketio
+#from flask_login import current_user
 
 from app.models import Post
+from app.auth.routes import current_user
+from .models import ChatMessage
 from . import public_bp
 
 
@@ -25,9 +28,9 @@ def show_post(slug):
 def handle_message(message):
     print("Mensaje recibido: " + message)
     if message != "Usuario conectado!":
-        send(message, broadcast=True)
+        send(message, broadcast=True) 
+        print("Mensaje guardado con exito! ", current_user)
 
 @public_bp.route("/chat")
 def chat():
     return render_template("public/chat.html")
-
